@@ -6,9 +6,14 @@
             [compojure.route :as route]
             [watchtower.jenkins :as jenkins]))
 
+(defn- successful? [job]
+  (= "SUCCESS" (:result (:lastBuild job))))
+
 (defn- job-row [job]
   [:li 
-    [:span {:class "label label-success"} (:result (:lastBuild job))]
+    (if (successful? job)
+      [:span {:class "label label-success"} "OK"]
+      [:span {:class "label label-important"} "FAIL"])
     " " 
     (:name job)])
 
