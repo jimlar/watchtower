@@ -8,7 +8,7 @@
                  [hiccup "1.0.1"]]
   :plugins [[lein-ring "0.7.3"]]
   :ring {
-    :handler watchtower.handler/app
+    :handler watchtower.ring/app
   }
   :profiles {
     :dev {
