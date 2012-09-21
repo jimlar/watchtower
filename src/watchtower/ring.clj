@@ -25,6 +25,7 @@
     [:body 
       [:h1 "Watchtower"]
       [:ul {:class "unstyled"} (map job-row (jenkins/jobs))]
+      [:script {:src "http://code.jquery.com/jquery-latest.js"}]
       (include-js "/bootstrap/js/bootstrap.min.js")]))
 
 
