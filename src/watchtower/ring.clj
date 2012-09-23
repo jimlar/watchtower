@@ -23,9 +23,9 @@
   (seq (.list (file "resources/public/bootstrap/themes"))))
 
 (defn- theme-selector [theme]
-  [:div {:class "btn-group"}
-    [:a {:class "btn dropdown-toggle" :data-toggle "dropdown" :href "#"}
-      "Change Theme"
+  [:li.dropdown
+    [:a {:class "dropdown-toggle" :data-toggle "dropdown" :href "#"}
+      "Theme"
       [:span {:class "caret"}]]
     [:ul {:class "dropdown-menu"}
       (map (fn [t] [:a {:href (str "?theme=" t)} t]) (themes))]])
@@ -40,11 +40,11 @@
         (include-css (str "/bootstrap/themes/" theme "/bootstrap.min.css"))]
       [:body 
         [:div {:class "container-fluid"}
-          [:div {:class "row-fluid"}
-            [:div {:class "span10"}
-              [:h1 "Watchtower"]]
-            [:div {:class "span2"}
-              (theme-selector theme)]]
+          [:div {:class "navbar"}
+            [:div {:class "navbar-inner"}
+              [:a.brand {:href "#"} "Watchtower"]
+              [:ul.nav.pull-right
+                (theme-selector theme)]]]
           [:table {:class "table"}
             (map job-row (jenkins/jobs))]
           [:script {:src "http://code.jquery.com/jquery-latest.js"}]
