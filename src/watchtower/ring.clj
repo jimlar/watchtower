@@ -29,7 +29,7 @@
       (map (fn [t] [:a {:href (str "?theme=" t)} t]) (themes))]])
 
 (defn index [theme]
-  (let [theme (if (empty? theme) "slate" theme)]
+  (let [theme (if (empty? theme) "amelia" theme)]
     (html5 {:lang "en"}
       [:head
         [:title "Watchtower"]
