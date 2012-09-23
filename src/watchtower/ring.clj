@@ -14,8 +14,8 @@
   [:tr 
     [:td
       (if (successful? job)
-        [:span {:class "btn btn-large btn-success"} "OK"]
-        [:span {:class "btn btn-large btn-danger"} "FAIL"])]
+        [:span.btn.btn-large.btn-success "OK"]
+        [:span.btn.btn-large.btn-danger "FAIL"])]
     [:td {:width "100%"}
       [:h4 (:name job)]]])
 
@@ -24,13 +24,9 @@
 
 (defn- theme-selector [theme]
   [:li.dropdown
-    [:a {:class "dropdown-toggle" :data-toggle "dropdown" :href "#"}
-      "Theme"
-      [:span {:class "caret"}]]
-    [:ul {:class "dropdown-menu"}
+    [:a.dropdown-toggle {:data-toggle "dropdown" :href "#"} "Theme" [:span.caret]]
+    [:ul.dropdown-menu
       (map (fn [t] [:a {:href (str "?theme=" t)} t]) (themes))]])
-
-;  [:span {:class "btn btn-large btn-success"} current])
 
 (defn index [theme]
   (let [theme (if (empty? theme) "slate" theme)]
@@ -39,13 +35,13 @@
         [:title "Watchtower"]
         (include-css (str "/bootstrap/themes/" theme "/bootstrap.min.css"))]
       [:body 
-        [:div {:class "container-fluid"}
-          [:div {:class "navbar"}
-            [:div {:class "navbar-inner"}
+        [:div.container-fluid
+          [:div.navbar
+            [:div.navbar-inner
               [:a.brand {:href "#"} "Watchtower"]
               [:ul.nav.pull-right
                 (theme-selector theme)]]]
-          [:table {:class "table"}
+          [:table.table
             (map job-row (jenkins/jobs))]
           [:script {:src "http://code.jquery.com/jquery-latest.js"}]
           (include-js "/bootstrap/js/bootstrap.min.js")]])))
