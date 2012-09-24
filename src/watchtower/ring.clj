@@ -32,6 +32,7 @@
   (let [theme (if (empty? theme) "amelia" theme)]
     (html5 {:lang "en"}
       [:head
+        [:meta {:http-equiv "refresh" :content "20;"}]
         [:title "Watchtower"]
         (include-css (str "/bootstrap/themes/" theme "/bootstrap.min.css"))]
       [:body 
