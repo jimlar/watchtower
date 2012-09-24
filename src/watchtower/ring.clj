@@ -7,17 +7,18 @@
             [compojure.route :as route]
             [watchtower.jenkins :as jenkins]))
 
-(defn- successful? [job]
-  (= "SUCCESS" (:result (:lastBuild job))))
-
 (defn- job-row [job]
   [:tr 
     [:td
-      (if (successful? job)
+      (if (jenkins/successful? job)
         [:span.btn.btn-large.btn-success "OK"]
         [:span.btn.btn-large.btn-danger "FAIL"])]
     [:td {:width "100%"}
-      [:h4 (:name job)]]])
+      [:h4 (:name job) " " 
+        (if-not (jenkins/successful? job)
+                (mapcat 
+                  (fn [culprit] [[:span.label.label-info culprit] " "]) 
+                  (jenkins/culprits job)))]]])
 
 (defn- themes []
   (seq (.list (file "resources/public/bootstrap/themes"))))
