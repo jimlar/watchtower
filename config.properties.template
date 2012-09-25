@@ -2,3 +2,5 @@
 jenkins.url=http://ci.example.com/
 jenkins.user=sampleuser
 jenkins.password=secret
+
+root.path=/watchtower

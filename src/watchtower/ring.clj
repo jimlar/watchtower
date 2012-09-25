@@ -5,7 +5,10 @@
   (:use hiccup.page)
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
-            [watchtower.jenkins :as jenkins]))
+            [watchtower.jenkins :as jenkins]
+            [watchtower.config :as config]))
+
+(def app-root (config/value :root.path))
 
 (defn- job-row [job]
   [:tr 
@@ -35,7 +38,7 @@
       [:head
         [:meta {:http-equiv "refresh" :content "20;"}]
         [:title "Watchtower"]
-        (include-css (str "/bootstrap/themes/" theme "/bootstrap.min.css"))]
+        (include-css (str app-root "/bootstrap/themes/" theme "/bootstrap.min.css"))]
       [:body 
         [:div.container-fluid
           [:div.navbar
@@ -46,13 +49,14 @@
           [:table.table
             (map job-row (jenkins/jobs))]
           [:script {:src "http://code.jquery.com/jquery-latest.js"}]
-          (include-js "/bootstrap/js/bootstrap.min.js")]])))
+          (include-js (str app-root "/bootstrap/js/bootstrap.min.js"))]])))
 
 
 (defroutes app-routes
-  (GET "/" [theme] (index theme))
-  (route/resources "/")
-  (route/not-found "Not Found"))
+  (context app-root []
+    (GET "/" [theme] (index theme))
+    (route/resources "/")
+    (route/not-found "Not Found")))
 
 (def app
   (handler/site app-routes))
