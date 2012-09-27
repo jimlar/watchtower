@@ -1,4 +1,5 @@
 (ns watchtower.config
+  (:use clojure.java.io)
   (:require [clojure.java.io :as javaio]))
 
 (defn- load-props [file]
@@ -16,3 +17,9 @@
 
 (defn int-value [key]
   (Integer. (value key)))
+
+(defn themes []
+  (seq (.list (file "resources/public/bootstrap/themes"))))
+
+(def app-root (value :root.path))
+

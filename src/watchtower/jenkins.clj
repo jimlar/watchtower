@@ -12,7 +12,9 @@
     true))
   
 (defn jobs []
-  (sort-by :name (:jobs (jenkins-status))))
+  (defn add-id [job]
+    (assoc job :id (apply str (filter (fn [c] (Character/isLetter c)) (:name job)))))
+  (map add-id (sort-by :name (:jobs (jenkins-status)))))
 
 (defn successful? [job]
   (= "SUCCESS" (:result (:lastCompletedBuild job))))
