@@ -27,4 +27,4 @@ function reloadStatus() {
   });
 }
 
-var interval = window.setInterval(reloadStatus, 1000)
+var interval = window.setInterval(reloadStatus, 2000)
