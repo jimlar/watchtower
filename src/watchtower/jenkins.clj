@@ -7,7 +7,7 @@
   (json/parse-string
     (:body 
       (client/get 
-        (str (config/value :jenkins.url) "/api/json?tree=jobs[name,buildable,url,lastBuild[building,number,result,timestamp,culprits[fullName]],lastCompletedBuild[building,number,result,timestamp,culprits[fullName]]]")
+        (str (config/value :jenkins.url) "/api/json?tree=jobs[name,buildable,url,lastBuild[building,executor[progress],number,result,timestamp,culprits[fullName]],lastCompletedBuild[number,result,timestamp,culprits[fullName]]]")
         {:basic-auth [(config/value :jenkins.user) (config/value :jenkins.password)]}))
     true))
   
@@ -18,6 +18,12 @@
 
 (defn successful? [job]
   (= "SUCCESS" (:result (:lastCompletedBuild job))))
+
+(defn building? [job]
+  (:building (:lastBuild job)))
+
+(defn progress [job]
+  (:progress (:executor (:lastBuild job))))
 
 (defn culprits [job]
   (map :fullName (:culprits (:lastCompletedBuild job))))

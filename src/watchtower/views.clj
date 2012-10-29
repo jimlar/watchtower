@@ -46,6 +46,11 @@
 
 (defn jobs [] 
   (defn filter [job]
-    {:id (:id job) :name (:name job) :successful (jenkins/successful? job) :culprits (jenkins/culprits job)})
+    { :id (:id job) 
+      :name (:name job) 
+      :building (jenkins/building? job) 
+      :progress (jenkins/progress job) 
+      :successful (jenkins/successful? job) 
+      :culprits (jenkins/culprits job)})
   (json/generate-string (map filter (jenkins/jobs))))
 
