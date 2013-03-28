@@ -12,3 +12,5 @@ pom.xml
 /watchtower.sublime-project
 /watchtower.sublime-workspace
 /config.properties
+/.idea
+/watchtower.iml
